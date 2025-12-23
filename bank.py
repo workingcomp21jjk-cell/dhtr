@@ -1,29 +1,29 @@
 class BankAccount:
-    def __init__(self, owner, number, balance=0):
-        self.owner = owner
-        self.number = number
-        self.balance = balance
+    def __init__(self, account_number, balance=0):
+        self.account_number = account_number  
+        self.balance = balance 
 
     def deposit(self, amount):
-        self.balance += amount
+        """Метод для поповнення рахунку"""
+        if amount > 0:
+            self.balance += amount
+            print(f"Поповнено на {amount} грн. Новий баланс: {self.balance} грн.")
+        else:
+            print("Сума поповнення має бути більшою за 0!")
 
     def withdraw(self, amount):
-        self.balance -= amount
+        """Метод для зняття грошей"""
+        if amount <= 0:
+            print("Сума зняття має бути більшою за 0!")
+        elif amount > self.balance:
+            print("Недостатньо коштів на рахунку!")
+        else:
+            self.balance -= amount
+            print(f"Знято {amount} грн. Залишок: {self.balance} грн.")
 
 
-class Bank:
-    def __init__(self):
-        self.accounts = {}
+account1 = BankAccount("UA123456789", 1000)
 
-    def create_account(self, owner, number, balance=0):
-        self.accounts[number] = BankAccount(owner, number, balance)
-
-    def deposit(self, number, amount):
-        self.accounts[number].deposit(amount)
-
-    def withdraw(self, number, amount):
-        self.accounts[number].withdraw(amount)
-
-    def transfer(self, from_num, to_num, amount):
-        self.accounts[from_num].withdraw(amount)
-        self.accounts[to_num].deposit(amount)
+account1.deposit(500)     
+account1.withdraw(200)    
+account1.withdraw(2000)   
